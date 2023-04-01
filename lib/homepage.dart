@@ -37,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      drawer: ChatWidgets.drawer(),
+      drawer: ChatWidgets.drawer(context),
       body: SafeArea(
         child: Stack(
           alignment: AlignmentDirectional.topEnd,

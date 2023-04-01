@@ -1,7 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebasechat/comps/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasechat/comps/animated_dialog.dart';
-
+import 'package:flutterfire_ui/auth.dart';
 
 class ChatWidgets {
   static Widget card({title, time, subtitle, onTap}) {
@@ -23,7 +24,7 @@ class ChatWidgets {
                 )),
           ),
           title: Text(title),
-          subtitle:subtitle !=null? Text(subtitle): null,
+          subtitle: subtitle != null ? Text(subtitle) : null,
           trailing: Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Text(time),
@@ -50,7 +51,15 @@ class ChatWidgets {
                 color: Colors.white,
               ),
             ),
-            SizedBox(width: 50,child: Center(child: Text('John',style: TextStyle(height: 1.5,fontSize: 12,color: Colors.white),overflow: TextOverflow.ellipsis,)))
+            SizedBox(
+                width: 50,
+                child: Center(
+                    child: Text(
+                  'John',
+                  style:
+                      TextStyle(height: 1.5, fontSize: 12, color: Colors.white),
+                  overflow: TextOverflow.ellipsis,
+                )))
           ],
         ),
       ),
@@ -117,7 +126,7 @@ class ChatWidgets {
     );
   }
 
-  static drawer() {
+  static drawer(context) {
     return Drawer(
       backgroundColor: Colors.indigo.shade400,
       child: SafeArea(
@@ -126,7 +135,7 @@ class ChatWidgets {
           child: Theme(
             data: ThemeData.dark(),
             child: Column(
-              children: const [
+              children: [
                 CircleAvatar(
                   radius: 60,
                   backgroundColor: Colors.grey,
@@ -143,10 +152,17 @@ class ChatWidgets {
                 ListTile(
                   leading: Icon(Icons.person),
                   title: Text('Profile'),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfileScreen()));
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.logout),
                   title: Text('Logout'),
+                  onTap: () async => FirebaseAuth.instance.signOut(),
                 )
               ],
             ),
@@ -156,11 +172,12 @@ class ChatWidgets {
     );
   }
 
-  static searchBar(bool open, ) {
+  static searchBar(
+    bool open,
+  ) {
     return AnimatedDialog(
       height: open ? 800 : 0,
       width: open ? 400 : 0,
-
     );
   }
 
@@ -169,7 +186,7 @@ class ChatWidgets {
       margin: const EdgeInsets.all(10),
       decoration: Styles.messageFieldCardStyle(),
       child: TextField(
-       onChanged: onChange,
+        onChanged: onChange,
         decoration: Styles.searchTextFieldStyle(),
       ),
     );
