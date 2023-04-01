@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
-import 'homepage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,13 +32,12 @@ class AuthGate extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return const MyHomePage();
+            return Scaffold(body: Center(child: const Text('loggedin')));
           } else {
             return const SignInScreen(
               providerConfigs: [
                 EmailProviderConfiguration(),
                 PhoneProviderConfiguration(),
-                
               ],
             );
           }
