@@ -35,7 +35,13 @@ class AuthGate extends StatelessWidget {
           if (snapshot.hasData) {
             return const MyHomePage();
           } else {
-            return const SignInScreen();
+            return const SignInScreen(
+              providerConfigs: [
+                EmailProviderConfiguration(),
+                PhoneProviderConfiguration(),
+                
+              ],
+            );
           }
         });
   }
